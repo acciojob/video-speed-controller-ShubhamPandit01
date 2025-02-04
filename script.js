@@ -1,9 +1,20 @@
-const inputs = document.querySelectorAll('.controls input');
+// Get references to the video player, range input, and speed display
+const video = document.getElementById('videoPlayer');
+const speedControl = document.getElementById('speedControl');
+const speedBar = document.querySelector('.speed-bar');
 
-    function handleUpdate() {
-      const suffix = this.dataset.sizing || '';
-      document.documentElement.style.setProperty(`--${this.name}`, this.value + suffix);
-    }
+// Function to update video speed and display
+function updateSpeed() {
+    // Update the video playback speed
+    video.playbackRate = speedControl.value;
 
-    inputs.forEach(input => input.addEventListener('change', handleUpdate));
-    inputs.forEach(input => input.addEventListener('mousemove', handleUpdate));
+    // Update the speed display to show the current playback rate (e.g., 1x, 1.5x, 2x)
+    speedBar.textContent = `${speedControl.value}×`;
+}
+
+// Event listeners for when the speed control is changed (via mouse move or change)
+speedControl.addEventListener('input', updateSpeed);
+speedControl.addEventListener('change', updateSpeed);
+
+// Initialize the speed display to match the initial speed value
+updateSpeed();
